@@ -1,0 +1,174 @@
+DESCRIBE students;
+DESCRIBE courses;
+DESCRIBE mentor;
+DESCRIBE student_courses;
+DESCRIBE mentor_courses;
+DESCRIBE query;
+DESCRIBE assign_query;
+DESCRIBE task;
+DESCRIBE task_completion;
+
+
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
+    email_id VARCHAR(40),
+    DOB VARCHAR(30)
+);
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(40)
+);
+
+CREATE TABLE mentor(
+    mentor_id INT PRIMARY KEY,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
+    email_id VARCHAR(40),
+    DOB VARCHAR(30)
+);
+
+CREATE TABLE student_courses (
+    student_id INT,
+    FOREIGN KEY (student_id) REFERENCES students (student_id),
+    course_id INT,
+    FOREIGN KEY (course_id) REFERENCES courses (course_id)
+);
+
+CREATE TABLE mentor_courses (
+    mentor_id INT,
+    FOREIGN KEY (mentor_id) REFERENCES mentor (mentor_id),
+    course_id INT,
+    FOREIGN KEY (course_id) REFERENCES courses (course_id)
+);
+
+CREATE TABLE query(
+    query_id INT PRIMARY KEY,
+    query_Q VARCHAR(200)
+);
+
+CREATE TABLE assign_query(
+    query_id INT,
+    FOREIGN KEY (query_id) REFERENCES query (query_id),
+    student_id INT,
+    FOREIGN KEY (student_id) REFERENCES students (student_id),
+    mentor_id INT,
+    FOREIGN KEY (mentor_id) REFERENCES mentor (mentor_id)
+);
+
+CREATE TABLE task(
+    task_id INT PRIMARY KEY,
+    task_name VARCHAR(40),
+    tack_description VARCHAR(200)
+);
+
+CREATE TABLE task_completion(
+    task_id INT PRIMARY KEY,
+    student_id INT,
+    FOREIGN KEY (student_id) REFERENCES students (student_id),
+    course_id INT,
+    FOREIGN KEY (course_id) REFERENCES courses (course_id),
+    grade VARCHAR(5)
+);
+
+SELECT * FROM student;
+SELECT * FROM courses;
+SELECT * FROM mentor;
+SELECT * FROM student_courses;
+SELECT * FROM mentor_courses;
+SELECT * FROM query;
+SELECT * FROM assign_query;
+SELECT * FROM task;
+SELECT * FROM task_completion;
+
+
+
+
+/* Student table insert */
+
+INSERT INTO students VALUES(01, 'David', 'Wallace','davidWall@gmail.com','09-11-1993');
+INSERT INTO students VALUES(02, 'jhon', 'Deo','Deojhon02@gmail.com','01-1-1996');
+INSERT INTO students VALUES(03, 'jenny', 'wong','wong007@gmail.com','04-3-2000');
+INSERT INTO students VALUES(04, 'davi', 'ramakrishnan','david@gmail.com','22-6-1991');
+INSERT INTO students VALUES(05, 'ben', 'gross','grossben@gmail.com','19-2-2001');
+INSERT INTO students VALUES(06, 'monkey', 'DeLoffy','monkey01@gmail.com','30-12-2003');
+
+/* course */
+
+INSERT INTO courses VALUES(101,"FDS");
+INSERT INTO courses VALUES(102,"Python");
+INSERT INTO courses VALUES(103,"MySQL");
+INSERT INTO courses VALUES(104,"Java");
+INSERT INTO courses VALUES(105,"Data Science");
+/* mentor */
+INSERT INTO mentor VALUES(501,"charls","bowman","bowman@gmail.com",'05-3-1982');
+INSERT INTO mentor VALUES(502,"Rick","stannes","rick002@gmail.com",'15-04-1987');
+INSERT INTO mentor VALUES(503,"mark","bowenie","markbroweni@gmail.com",'18-04-1983');
+INSERT INTO mentor VALUES(504,"tony","stark","ironman@gmail.com",'03-09-1982');
+INSERT INTO mentor VALUES(505,"steve","caption","capAmerice@gmail.com",'05-01-1907');
+
+/* student_courses */
+
+INSERT INTO student_courses VALUES(01,104);
+INSERT INTO student_courses VALUES(02,101);
+INSERT INTO student_courses VALUES(03,102);
+INSERT INTO student_courses VALUES(04,105);
+INSERT INTO student_courses VALUES(05,104);
+INSERT INTO student_courses VALUES(06,101);
+
+/* mentor_courses */
+
+INSERT INTO mentor_courses VALUES(501,104);
+INSERT INTO mentor_courses VALUES(502,101);
+INSERT INTO mentor_courses VALUES(503,102);
+INSERT INTO mentor_courses VALUES(504,105);
+INSERT INTO mentor_courses VALUES(505,102);
+
+/* query */
+
+INSERT INTO query VALUES(01,'Question1');
+INSERT INTO query VALUES(02,'Question2');
+INSERT INTO query VALUES(03,'Question3');
+INSERT INTO query VALUES(04,'Question4');
+INSERT INTO query VALUES(05,'Question5');
+INSERT INTO query VALUES(06,'Question6');
+INSERT INTO query VALUES(07,'Question7');
+
+/* assign_query */
+
+INSERT INTO assign_query VALUES(01,02,503);
+INSERT INTO assign_query VALUES(02,01,502);
+INSERT INTO assign_query VALUES(03,03,505);
+INSERT INTO assign_query VALUES(04,04,501);
+INSERT INTO assign_query VALUES(05,05,502);
+INSERT INTO assign_query VALUES(06,01,504);
+INSERT INTO assign_query VALUES(07,03,504);
+
+/* task */
+
+INSERT INTO task VALUES(1,'task1','task_description_1');
+INSERT INTO task VALUES(2,'task2','task_description_2');
+INSERT INTO task VALUES(3,'task3','task_description_3');
+INSERT INTO task VALUES(4,'task4','task_description_4');
+INSERT INTO task VALUES(5,'task5','task_description_5');
+INSERT INTO task VALUES(6,'task6','task_description_6');
+
+/* task_completion */
+INSERT INTO task_completion VALUES(1,01,104,8);
+INSERT INTO task_completion VALUES(2,02,101,6);
+INSERT INTO task_completion VALUES(3,03,102,10);
+INSERT INTO task_completion VALUES(4,04,105,8);
+INSERT INTO task_completion VALUES(5,05,104,7);
+INSERT INTO task_completion VALUES(6,06,101,9);
+
+
+
+
+
+
+
+
+
+
